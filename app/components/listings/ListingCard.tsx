@@ -81,7 +81,10 @@ const ListingCard: React.FC<ListingCardProps> = ({
           </div>
         </div>
         <div className="font-semibold text-lg">
-          {location?.region}, {location?.label}
+          {location?.region},{" "}
+          {location?.label.length! > 12
+            ? `${location?.label.substring(0, 12)}...`
+            : location?.label}
         </div>
         <div className="font-light text-neutral-500">
           {reservationDate || data.category}
