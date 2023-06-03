@@ -12,12 +12,26 @@ import { signOut } from "next-auth/react";
 //types
 import { SafeUser } from "@/app/types";
 import { useRouter } from "next/navigation";
+import getTripsLength from "@/app/actions/getTripsLength";
+import getFavsLength from "@/app/actions/getFavsLength";
+import getReservLength from "@/app/actions/getReservLength";
+import getPropLength from "@/app/actions/getPropLength";
 
 interface UserMenuProps {
   currentUser?: SafeUser | null;
+  tripsLength?: number;
+  favsLength?: number;
+  reservLength?: number;
+  propLength?: number;
 }
 
-const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
+const UserMenu: React.FC<UserMenuProps> = ({
+  currentUser,
+  tripsLength,
+  favsLength,
+  reservLength,
+  propLength,
+}) => {
   const router = useRouter();
   const menuRef = useRef(null);
 
@@ -109,18 +123,22 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                 <MenuItem
                   onClick={() => router.push("/trips")}
                   label="My trips"
+                  count={tripsLength}
                 />
                 <MenuItem
                   onClick={() => router.push("/favorites")}
                   label="My favorites"
+                  count={favsLength}
                 />
                 <MenuItem
                   onClick={() => router.push("/reservations")}
                   label="My reservations"
+                  count={reservLength}
                 />
                 <MenuItem
                   onClick={() => router.push("/properties")}
                   label="My properties"
+                  count={propLength}
                 />
                 <MenuItem onClick={rentModal.onOpen} label="Airbnb my home" />
                 <hr />
